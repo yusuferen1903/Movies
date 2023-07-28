@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MatDialog } from "@angular/material/dialog";
+import { AddMoviesModalComponent } from '../modal/add-movies-modal/add-movies-modal.component';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+  ) { }
   searchText = '';
   // characters = [
   //   'Ant-Man',
@@ -22,4 +25,14 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openDialog(){
+    const dialogRef = this.dialog.open(AddMoviesModalComponent , {
+      width: '800px'
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      
+
+  })
+  }
 }

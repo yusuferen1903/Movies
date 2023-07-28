@@ -1,0 +1,33 @@
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <span class="close-icon" (click)="cancel()">&times;</span>
+    <div class="main-div flex-wrap">
+        <div class="col-12 d-flex">
+            <div class="row col-4">
+                <input type="text" id="movieName" placeholder="Film Adı" formControlName="movieName">
+            </div>
+            <div class="row col-4">
+                <input type="number" id="imdb" placeholder="IMDB Puanı" formControlName="imdb">
+            </div>
+            <div class="row col-4">
+                <input type="text" id="artists" placeholder="Oyuncular" formControlName="artists">
+
+            </div>
+        </div>
+
+        <div class="col-12 d-flex">
+            <div class="row col-4">
+                <input type="text" id="movieImage" placeholder="Film Görseli" formControlName="movieImage">
+            </div>
+            <div class="row col-8">
+                <input type="text" id="movieDescription" placeholder="Film Kısa Açıklama" formControlName="movieDescription">
+            </div>
+        </div>
+
+    </div>
+    <div class="create">
+        <button type="submit">
+            Film Ekle
+        </button>
+    </div>
+</form>
