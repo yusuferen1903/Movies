@@ -41,7 +41,10 @@
                 <p>IMDb: {{ item.imdb }}</p>
             </div>
         </div>
-
+        <div class="edit">
+            <button class="edit" (click)="edit()"><i class='fas fa-edit'></i></button>
+            <button class="delete" (click)="deleteMovie(item.Title)"><i class="fa fa-trash" aria-hidden="true"></i> SİL</button>
+        </div>
 
     </div>
 </div>

@@ -11,13 +11,15 @@ import { AddMoviesModalComponent } from './modal/add-movies-modal/add-movies-mod
 import { HttpClientModule } from '@angular/common/http';
 import { MoviesListComponent } from './movies-list/movies-list.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
     AddMoviesModalComponent,
     FilterPipe,
-    MoviesListComponent
+    MoviesListComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

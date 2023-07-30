@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConfirmModalComponent } from '../modal/confirm-modal/confirm-modal.component';
+import { AddMoviesModalComponent } from '../modal/add-movies-modal/add-movies-modal.component';
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
@@ -36,8 +38,10 @@ export class MoviesListComponent implements OnInit {
   { value: 'Thriller', label: 'Gerilim' },
   { value: 'War', label: 'Savaş' },
   { value: 'Western', label: 'Batılı' }];
-  constructor() { }
-
+  constructor(
+    private dialog: MatDialog
+  ) { }
+  dialogRef: MatDialogRef<ConfirmModalComponent>;
   ngOnInit(): void {
     this.getMoviesinLs()
     this.getYears()
@@ -74,6 +78,32 @@ export class MoviesListComponent implements OnInit {
     this.applyFilter()
     console.log(this.movies);
     
+  }
+  edit(){
+    const dialogRef = this.dialog.open(AddMoviesModalComponent , {
+      width: '800px'
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      
+
+  })
+  }
+  deleteMovie(filmTitle){
+    const dialogRef = this.dialog.open(ConfirmModalComponent , {
+      width: '500px',
+      data: {
+        title: "Filmi Sil",
+        message: "Silmek istediğinize emin misiniz ?",
+      },
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const updatedMovies = this.movies.filter(movie => movie.Title !== filmTitle);
+        localStorage.setItem('movies', JSON.stringify(updatedMovies));
+        this.ngOnInit()
+      }
+  })
   }
 
 }

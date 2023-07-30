@@ -69,9 +69,6 @@ export class AddMoviesModalComponent implements OnInit {
         return;
       }}
     this.movies.push(this.form.value)
-    console.log(this.movies);
-    
-    console.log(this.form.value);
     const movies = JSON.stringify(this.movies);
     localStorage.setItem('movies', movies);
     

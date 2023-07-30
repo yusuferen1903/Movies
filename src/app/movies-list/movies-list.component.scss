@@ -102,3 +102,19 @@
   font-size: 15px;
   flex: 1;
 }
+
+.edit {
+  display: flex;
+  justify-content: space-between;
+  .delete {
+    background-color: transparent;
+    border: none;
+    color: #a91111;
+    cursor: pointer;
+  }
+  .edit {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+}
