@@ -1,6 +1,13 @@
-import { Component, ElementRef, OnInit, HostListener, Inject } from '@angular/core';
-import { FormArray, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, ElementRef, OnInit, Inject } from '@angular/core';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IndividualConfig, ToastrService } from 'ngx-toastr';
+const toastErrorandSuccess: Partial<IndividualConfig> = {
+  timeOut: 3000
+};
+const toastInfo: Partial<IndividualConfig> = {
+  timeOut: 0
+};
 @Component({
   selector: 'app-add-movies-modal',
   templateUrl: './add-movies-modal.component.html',
@@ -38,14 +45,15 @@ export class AddMoviesModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddMoviesModalComponent>,
     private fb: FormBuilder,
-    private el: ElementRef
+    private el: ElementRef,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
     this.buildForm()
     this.getMoviesinLs()
     console.log(this.data);
-    this.oldMovieTitle = this.data.movie.Title
+    this.oldMovieTitle = this.data?.movie.Title
     
   }
   getMoviesinLs(){
@@ -67,10 +75,13 @@ export class AddMoviesModalComponent implements OnInit {
     this.dialogRef.close(value);
   }
   submit (){
+    var toasterInfo = this.toastr.info('Lütfen Bekleyin', `İşlem Sürüyor`, toastInfo);
     for (const key of Object.keys(this.form.controls)) { 
       if (this.form.controls[key].invalid) {
         const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + key + '"]');
         invalidControl.focus();
+        this.toastr.remove(toasterInfo.toastId)
+        const toaster = this.toastr.error('Zorunlu Alanları Doldurun', `Hata`, toastErrorandSuccess);
         return;
       }}
     if (!this.data) {
@@ -78,11 +89,15 @@ export class AddMoviesModalComponent implements OnInit {
       const movies = JSON.stringify(this.movies);
       localStorage.setItem('movies', movies);
       this.dialogRef.close(true);
+      this.toastr.remove(toasterInfo.toastId)
+      const toaster = this.toastr.success('Film Oluşturuldu', `İşlem Başarılı`, toastErrorandSuccess);
     } else {      
       this.movies = this.movies.filter(movie => movie.Title !== this.oldMovieTitle);
       this.movies.push(this.form.value)
       const movies = JSON.stringify(this.movies);
       localStorage.setItem('movies', movies);
+      this.toastr.remove(toasterInfo.toastId)
+      const toaster = this.toastr.success('Film Güncellendi', `İşlem Başarılı`, toastErrorandSuccess);
       this.dialogRef.close(true);
       this.ngOnInit()
     }

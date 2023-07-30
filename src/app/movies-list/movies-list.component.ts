@@ -2,12 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../modal/confirm-modal/confirm-modal.component';
 import { AddMoviesModalComponent } from '../modal/add-movies-modal/add-movies-modal.component';
+import { IndividualConfig, ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+const toastErrorandSuccess: Partial<IndividualConfig> = {
+  timeOut: 3000
+};
+const toastInfo: Partial<IndividualConfig> = {
+  timeOut: 0
+};
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
   styleUrls: ['./movies-list.component.scss']
 })
 export class MoviesListComponent implements OnInit {
+  id: string;
   movies: any[] = [];
   years: number[] = [];
   imdbValues: number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
@@ -40,10 +49,15 @@ export class MoviesListComponent implements OnInit {
   { value: 'War', label: 'Savaş' },
   { value: 'Western', label: 'Batılı' }];
   constructor(
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+  ) { 
+    this.id = this.route.snapshot.queryParamMap.get('q') || null;
+  }
   dialogRef: MatDialogRef<ConfirmModalComponent>;
   ngOnInit(): void {
+    this.filterTitle = this.id
     this.getMoviesinLs()
     this.getYears()
   }
@@ -116,8 +130,11 @@ export class MoviesListComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        var toasterInfo = this.toastr.info('Lütfen Bekleyin', `İşlem Sürüyor`, toastInfo);
         const updatedMovies = this.movies.filter(movie => movie.Title !== movieTitle);
         localStorage.setItem('movies', JSON.stringify(updatedMovies));
+        this.toastr.remove(toasterInfo.toastId)
+        const toaster = this.toastr.success('Film Silindi', `İşlem Başarılı`, toastErrorandSuccess);
         this.ngOnInit()
       }
   })

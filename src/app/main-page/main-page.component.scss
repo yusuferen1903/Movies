@@ -13,7 +13,6 @@
     min-width: 500px;
   }
   .form-group {
-    margin-bottom: 1rem;
     position: relative;
     i {
         position: absolute;
@@ -60,15 +59,25 @@
 }
   .list-group {
     display: flex;
-    -ms-flex-direction: column;
     flex-direction: column;
     padding-left: 0;
     margin-bottom: 0;
+    margin-top: 0px;
+    max-height: 300px;
+    overflow-y: auto;
+    position: fixed;
+    width: 530px;
     .list-group-item {
+      cursor: pointer;
       position: relative;
-      display: block;
+      display: flex;
+      text-align: center;
+      align-items: center;
       padding: 0.75rem 1.25rem;
       background-color: #fff;
       border: 1px solid rgba(0, 0, 0, 0.125);
+      img {
+        margin-right: 4%;
+      }
     }
   }

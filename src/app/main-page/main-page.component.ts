@@ -2,30 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
 import { AddMoviesModalComponent } from '../modal/add-movies-modal/add-movies-modal.component';
 import { MoviesService } from '../services/movies.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-
   constructor(
     private dialog: MatDialog,
-    private movieService: MoviesService
-  ) { }
+    private movieService: MoviesService,
+    private router: Router,
+  ) {}
   movies: any[] = [];
   currentPage = 1;
-  searchText = '';
-  // characters = [
-  //   'Ant-Man',
-  //   'Aquaman',
-  //   'Asterix',
-  //   'The Atom',
-  //   'The Avengers',
-  //   'Batgirl',
-  //   'Batman',
-  //   'Batwoman',
-  // ]
+  filterTitle: string | null = null;
+  filteredMovies: any[] = [];
   ngOnInit(): void {
     this.getMovies()
     console.log(this.movies);
@@ -60,6 +52,18 @@ export class MainPageComponent implements OnInit {
       });
     }
 
+  }
+  applyFilter() {
+    // Filmleri başlık alanına göre filtrele
+    if (this.filterTitle) {
+      this.filteredMovies =  this.movies.filter(movie => movie.Title.toLowerCase().includes(this.filterTitle.toLowerCase()));
+    } else {
+      this.filteredMovies = this.movies;
+    }
+
+  }
+  goToMovie(movieTitle){
+    this.router.navigate(['/movies-list'], { queryParams: { q: movieTitle } });
   }
   openDialog(){
     const dialogRef = this.dialog.open(AddMoviesModalComponent , {

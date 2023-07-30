@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MoviesListComponent } from './movies-list/movies-list.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,10 @@ import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.compo
     MatDialogModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatSelectModule
+    MatSelectModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
