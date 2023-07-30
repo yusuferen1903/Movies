@@ -1,0 +1,13 @@
+<div class="confirm-modal">
+
+    <span class="close-icon" (click)="cancel()">&times;</span>
+    <div class="content">
+      <div class="header">{{ data.title }}</div>
+      <p [innerHTML]="data.message"></p>
+    </div>
+    <div class="footer">
+      <button class="btn-main cancel mr-2"  (click)="cancel()">İPTAL</button>
+      <button class="btn-main confirm"
+        (click)="confirm()">EVET</button>
+    </div>
+  </div>

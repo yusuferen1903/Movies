@@ -1,0 +1,45 @@
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <span class="close-icon" (click)="cancel()">&times;</span>
+    <div class="main-div flex-wrap">
+        <div class="m-inputsrow col-12 d-flex">
+            <div class="row col-4">
+                <input type="text" (keypress)="keyPressAlphaNumeric($event)" id="Title" placeholder="Film Adı" formControlName="Title">
+            </div>
+            <div class="row col-4">
+                <input type="number" [max]="10" [min]="0" id="imdb" placeholder="IMDB Puanı" formControlName="imdb">
+            </div>
+            <div *ngIf = "!data" class="row col-4">
+                <input type="text" id="Actors" placeholder="Oyuncular" formControlName="Actors">
+
+            </div>
+        </div>
+
+        <div *ngIf = "!data" class="m-inputsrow col-12 d-flex">
+            <div class="row col-4">
+                <input type="text" id="Poster" placeholder="Film Görseli" formControlName="Poster">
+            </div>
+            <div class="row col-4">
+                <input type="number" id="Year" [min]="1900" [max]="2023" placeholder="Yapım Yılı" formControlName="Year">
+            </div>
+            <div class="row col-4">
+                <select formControlName="Genre">
+                    <option disabled selected value=''>Film Türü</option>
+                    <option *ngFor="let genre of genres" [value]="genre.value">{{ genre.label }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div *ngIf = "!data" class="m-inputsrow col-12 d-flex">
+            <div class="row col-8">
+                <input type="text" id="Plot" placeholder="Film Kısa Açıklama" formControlName="Plot">
+            </div>
+        </div>
+
+    </div>
+    <div class="create">
+        <button type="submit">
+            {{data ? 'Düzenle' : 'Film Ekle'}}
+        </button>
+    </div>
+</form>

@@ -1,0 +1,100 @@
+
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+  }
+  .card {
+    padding: 1.5rem;
+    position: relative;
+    margin: 1rem 1rem;
+    min-width: 500px;
+  }
+  .form-group {
+    position: relative;
+    i {
+        position: absolute;
+        right: -15px;
+        top: 50%;
+        transform: translateY(-50%);    
+    }
+    label {
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    .form-control {
+      display: block;
+      height: calc(1em + 0.75rem);
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      width: 100%;
+      background-color: #fff;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+  }
+  .button-card {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 40px;
+  }
+  .green-buttons {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+  .list-group {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    margin-top: 0px;
+    max-height: 300px;
+    overflow-y: auto;
+    position: fixed;
+    width: 530px;
+    .list-group-item {
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      text-align: center;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      background-color: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      img {
+        margin-right: 4%;
+      }
+    }
+  }
+
+  @media(max-width:573px){
+    .card{
+      min-width: unset !important;
+      .button-card {
+        padding: 20px;
+        .green-buttons {
+          margin-left: 2%;
+          padding: 8px 11px;
+          font-size: 12px;
+        }
+      }
+      .list-group {
+        width: 240px;
+      }
+    }
+  }

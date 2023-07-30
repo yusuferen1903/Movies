@@ -1,0 +1,20 @@
+<div class="content" role="main">
+    <div class="card">
+        <div class="button-card">
+            <button class="green-buttons" (click)="openDialog()">Film Ekle +</button>
+            <button class="green-buttons" routerLink="/movies-list">Film Listesi</button>
+        </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="search-text" placeholder="Bulmak İstediğiniz Filmin Adını Yazınız"  [(ngModel)]="filterTitle" (ngModelChange)="applyFilter()" placeholder="Ara"> <i class="fa fa-search" aria-hidden="true"></i>
+      </div>
+      <div>
+        <ul *ngIf="filterTitle?.length > 0" class="list-group">
+          <li (click)="goToMovie(movie.Title)" class="list-group-item" *ngFor="let movie of filteredMovies">
+            <img style="height: 55px; width: 38px;" src="{{ movie.Poster }}" alt="{{ movie.title }}" />
+            {{movie.Title}}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>

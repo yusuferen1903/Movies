@@ -1,0 +1,176 @@
+.container {
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 88vh;
+}
+
+.filter-container {
+  background-color: #000;
+  padding: 30px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  .mainpage {
+    margin-right: 10px;
+    width: 200px;
+    height: 10px;
+    letter-spacing: 0.5px;
+    color: #fff;
+    cursor: pointer;
+  }
+  .mainpage:hover {
+    color:#cd7f32;
+  }
+  input {
+    margin-right: 10px;
+    width: 200px;
+    height: 10px;
+    padding: 10px;
+    letter-spacing: 0.5px;
+    background-color: aliceblue;
+    border: none;
+  }
+}
+
+.film-length {
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  span {
+    color : #fff;
+  }
+}
+
+.filter-container label,
+.filter-container select {
+  margin-right: 10px;
+  width: 200px;
+  height: 30px;
+  padding: 5px;
+  letter-spacing: 0.5px;
+  background-color: aliceblue;
+}
+
+.card {
+  background-color: #cd7f32;
+  color: white;
+  width: calc(20% - 20px);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  position: relative;
+}
+
+.image-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  max-width: 100%;
+  transition: filter 0.5s ease;
+}
+
+.description-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  padding: 35px;
+}
+
+.image-container:hover img {
+  filter: blur(5px);
+}
+
+.image-container:hover .description-overlay {
+  opacity: 1;
+}
+
+.text-container {
+  text-align: center;
+  font-size: 15px;
+  flex: 1;
+}
+
+.edit {
+  display: flex;
+  justify-content: space-between;
+  .delete {
+    background-color: transparent;
+    border: none;
+    color: #a91111;
+    cursor: pointer;
+  }
+  .edit {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+@media(max-width:1400px) {
+
+  .card {
+    width: calc(27% - 20px);
+  }
+}
+
+@media(max-width:1100px) {
+
+  .card {
+    width: calc(33% - 20px);
+  }
+}
+
+@media(max-width:832px) {
+
+  .filter-container {
+    flex-direction: column;
+    select {
+      margin-top: 2%;
+    }
+    input {
+      margin-top: 2%;
+      width: 180px;
+    }
+  }
+  .card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media(max-width:610px) {
+
+  .card {
+    width: calc(70% - 20px);
+  }
+}
+
+@media(max-width:470px) {
+
+  .card {
+    width: calc(85% - 20px);
+  }
+}

@@ -1,0 +1,73 @@
+.confirm-modal {
+  position: relative;
+}
+
+.close-icon {
+    position: absolute;
+    top: -11px;
+    right: -5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+.header {
+    padding: 15px 0;
+    font-size: 22px;
+    margin-bottom: 30px;
+    position: relative;
+    color: #e63442;
+  
+    &:after {
+      position: absolute;
+      bottom: 0;
+      width: 50px;
+      height: 2px;
+      left: 50%;
+      margin-left: -25px;
+      border-radius: 4px;
+      content: "";
+      background: #e63442;
+    }
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+  
+    p {
+      font-family: "Quicksand", sans-serif;
+      font-size: 18px;
+      color: #1e325c;
+      text-align: center;
+    }
+  }
+
+  .footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    display: flex;
+    justify-content: end;
+  
+    button {
+      border-radius: 5px;
+      background-color: #4d4d4d;
+      text-transform: uppercase;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      color: #fff;
+      &.confirm{
+        background: #e63442;
+      }
+      &.cancel{
+        background: #000;
+      }
+    }
+  }
+
+  .mr-2 {
+    margin-right: 2%;
+  }
+  
