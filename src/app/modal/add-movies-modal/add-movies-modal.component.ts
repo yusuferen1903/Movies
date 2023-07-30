@@ -8,6 +8,31 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class AddMoviesModalComponent implements OnInit {
   form: FormGroup;
+  movies: any[] = [];
+  genres: any[] = [
+    { value: 'Action', label: 'Aksiyon' },
+    { value: 'Adventure', label: 'Macera' },
+    { value: 'Animation', label: 'Animasyon' },
+    { value: 'Biography', label: 'Biyografi' },
+    { value: 'Comedy', label: 'Komedi' },
+    { value: 'Crime', label: 'Suç' },
+    { value: 'Documentary', label: 'Belgesel' },
+    { value: 'Drama', label: 'Drama' },
+    { value: 'Family', label: 'Aile' },
+    { value: 'Fantasy', label: 'Fantastik' },
+    { value: 'Film-Noir', label: 'Siyah Beyaz' },
+    { value: 'History', label: 'Tarih' },
+    { value: 'Horror', label: 'Korku' },
+    { value: 'Music', label: 'Müzik' },
+    { value: 'Musical', label: 'Müzikal' },
+    { value: 'Mystery', label: 'Gizem' },
+    { value: 'Romance', label: 'Romantik' },
+    { value: 'Sci-Fi', label: 'Bilim Kurgu' },
+    { value: 'Sport', label: 'Spor' },
+    { value: 'Thriller', label: 'Gerilim' },
+    { value: 'War', label: 'Savaş' },
+    { value: 'Western', label: 'Batılı' }
+  ];
   constructor(
     public dialogRef: MatDialogRef<AddMoviesModalComponent>,
     private fb: FormBuilder,
@@ -16,14 +41,21 @@ export class AddMoviesModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm()
+    this.getMoviesinLs()
+  }
+  getMoviesinLs(){
+    const itemsString = localStorage.getItem('movies');
+    this.movies = JSON.parse(itemsString);
   }
   buildForm(){
     this.form = this.fb.group({
-      movieName: ['', Validators.required],
+      Title: ['', Validators.required],
       imdb: ['', Validators.required],
-      artists: ['', Validators.required],
-      movieImage : ['', Validators.required],
-      movieDescription: ['', Validators.required]
+      Actors: ['', Validators.required],
+      Poster : ['', Validators.required],
+      Year : ['', Validators.required],
+      Genre: ['', Validators.required],
+      Plot: ['', Validators.required]
     })
   }
   public close(value : any) {
@@ -36,9 +68,14 @@ export class AddMoviesModalComponent implements OnInit {
         invalidControl.focus();
         return;
       }}
-    console.log(this.form.value);
+    this.movies.push(this.form.value)
+    console.log(this.movies);
     
-    this.close(true)
+    console.log(this.form.value);
+    const movies = JSON.stringify(this.movies);
+    localStorage.setItem('movies', movies);
+    
+    // this.close(true)
   }
   cancel() {
     this.dialogRef.close({ response: null });

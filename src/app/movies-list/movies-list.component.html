@@ -1,0 +1,47 @@
+<div class="filter-container">
+    <input type="text" [(ngModel)]="filterTitle" (ngModelChange)="applyFilter()" placeholder="Ara">
+    <select id="yearFilter" [(ngModel)]="filterYear" (ngModelChange)="applyFilter()">
+        <option [value]="null">Film Yılı</option>
+        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+    <select id="filterImdb" [(ngModel)]="filterImdb" (ngModelChange)="applyFilter()">
+        <option [value]="null">IMDB Puanı</option>
+        <option *ngFor="let imdb of imdbValues" [value]="imdb">{{ imdb }}+</option>
+    </select>
+    <select [(ngModel)]="filterGenre" (ngModelChange)="applyFilter()">
+        <option [value]="null">Film Türü</option>
+        <option *ngFor="let genre of genres" [value]="genre.value">{{ genre.label }}</option>
+    </select>
+</div>
+<div class="film-length">
+    <span *ngIf="filteredMovies.length > 0 else notFound">
+        {{filteredMovies.length}} Film Bulundu
+    </span>
+    <ng-template #notFound>
+        <span>
+            Film Bulunamadı
+        </span>
+    </ng-template>
+</div>
+<div *ngIf="filteredMovies.length === 0" >
+    <img style="width: 100%;" src="https://static.vecteezy.com/system/resources/previews/001/254/680/original/cinema-background-concept-vector.jpg"  />
+</div>
+<div class="container">
+    <div class="card" *ngFor="let item of filteredMovies">
+        <div class="content">
+            <div class="image-container">
+                <img style="height: 440px; width: 300px;" src="{{ item.Poster }}" alt="{{ item.title }}" />
+                <div style="height: 440px; width: 300px;" class="description-overlay">
+                    <p>{{ item.Plot }}</p>
+                </div>
+            </div>
+            <div class="text-container">
+                <h3>{{ item.Title }} ({{item.Year}})</h3>
+                <p>Oyuncular: {{ item.Actors }}</p>
+                <p>IMDb: {{ item.imdb }}</p>
+            </div>
+        </div>
+
+
+    </div>
+</div>

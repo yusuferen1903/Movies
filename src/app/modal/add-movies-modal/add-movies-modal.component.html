@@ -4,23 +4,35 @@
     <div class="main-div flex-wrap">
         <div class="col-12 d-flex">
             <div class="row col-4">
-                <input type="text" id="movieName" placeholder="Film Adı" formControlName="movieName">
+                <input type="text" id="Title" placeholder="Film Adı" formControlName="Title">
             </div>
             <div class="row col-4">
                 <input type="number" id="imdb" placeholder="IMDB Puanı" formControlName="imdb">
             </div>
             <div class="row col-4">
-                <input type="text" id="artists" placeholder="Oyuncular" formControlName="artists">
+                <input type="text" id="Actors" placeholder="Oyuncular" formControlName="Actors">
 
             </div>
         </div>
 
         <div class="col-12 d-flex">
             <div class="row col-4">
-                <input type="text" id="movieImage" placeholder="Film Görseli" formControlName="movieImage">
+                <input type="text" id="Poster" placeholder="Film Görseli" formControlName="Poster">
             </div>
+            <div class="row col-4">
+                <input type="text" id="Year" placeholder="Yapım Yılı" formControlName="Year">
+            </div>
+            <div class="row col-4">
+                <select formControlName="Genre">
+                    <option disabled selected value=''>Film Türü</option>
+                    <option *ngFor="let genre of genres" [value]="genre.value">{{ genre.label }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex">
             <div class="row col-8">
-                <input type="text" id="movieDescription" placeholder="Film Kısa Açıklama" formControlName="movieDescription">
+                <input type="text" id="Plot" placeholder="Film Kısa Açıklama" formControlName="Plot">
             </div>
         </div>
 
