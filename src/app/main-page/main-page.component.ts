@@ -20,8 +20,6 @@ export class MainPageComponent implements OnInit {
   filteredMovies: any[] = [];
   ngOnInit(): void {
     this.getMovies()
-    console.log(this.movies);
-    
     }
   loadMoviestoLS() {
       const movies = JSON.stringify(this.movies);
@@ -31,7 +29,6 @@ export class MainPageComponent implements OnInit {
     if (localStorage.getItem('movies') === null) {
       this.movieService.getAllMovies(this.currentPage).subscribe((movies: any[]) => {
         this.movies = movies;
-        console.log(movies);
         this.currentPage++;
         this.imdBidtoImdp(this.movies)
       });
@@ -70,9 +67,6 @@ export class MainPageComponent implements OnInit {
       width: '800px'
     })
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      
-
   })
   }
 }

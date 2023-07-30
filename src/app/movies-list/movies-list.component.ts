@@ -68,8 +68,6 @@ export class MoviesListComponent implements OnInit {
     }
   }
   applyFilter() {
-    console.log('sa');
-    
     let filteredByYear = this.filterYear && this.filterYear !== "null" ? this.movies.filter(movie => movie.Year == this.filterYear) : this.movies;
     let filteredByImdb = this.filterImdb && this.filterImdb !== "null" ? filteredByYear.filter(movie => parseFloat(movie.imdb) >= this.filterImdb) : filteredByYear;
     let filteredByGenre = this.filterGenre && this.filterGenre !== "null" ? filteredByImdb.filter(movie => movie.Genre.includes(this.filterGenre)) : filteredByImdb;
@@ -102,8 +100,6 @@ export class MoviesListComponent implements OnInit {
     const itemsString = localStorage.getItem('movies');
     this.movies = JSON.parse(itemsString);
     this.applyFilter()
-    console.log(this.movies);
-    
   }
   edit(movie){
     const dialogRef = this.dialog.open(AddMoviesModalComponent , {

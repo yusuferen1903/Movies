@@ -52,7 +52,6 @@ export class AddMoviesModalComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm()
     this.getMoviesinLs()
-    console.log(this.data);
     this.oldMovieTitle = this.data?.movie.Title
     
   }
