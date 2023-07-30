@@ -37,7 +37,7 @@
     <div class="card" *ngFor="let item of filteredMovies">
         <div class="content">
             <div class="image-container">
-                <img style="height: 440px; width: 300px;" src="{{ item.Poster }}" alt="{{ item.title }}" />
+                <img style="height: 440px; width: 300px;"  onerror="src='https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'" src="{{ item.Poster }}" alt="{{ item.title }}" />
                 <div style="height: 440px; width: 300px;" class="description-overlay">
                     <p>{{ item.Plot }}</p>
                 </div>
