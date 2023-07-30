@@ -76,7 +76,7 @@ export class AddMoviesModalComponent implements OnInit {
     this.dialogRef.close(value);
   }
   submit() {
-    var toasterInfo = this.toastr.info('Lütfen Bekleyin', `İşlem Sürüyor`, toastInfo);
+    let toasterInfo = this.toastr.info('Lütfen Bekleyin', `İşlem Sürüyor`, toastInfo);
     //Bütün alanların dolu olup olmadığını kontrol eder
     for (const key of Object.keys(this.form.controls)) {
       if (this.form.controls[key].invalid) {
@@ -111,7 +111,7 @@ export class AddMoviesModalComponent implements OnInit {
   //Sadece Alfanümerik karakter girilmesine izin verir. (Türkçe karakterler opsiyonel olarak eklenmiştir)
   keyPressAlphaNumeric(event) {
 
-    var inp = String.fromCharCode(event.keyCode);
+    let inp = String.fromCharCode(event.keyCode);
     if (/[a-zA-Z0-9-_ğüıöçşĞÜÖÇŞ ]/.test(inp)) {
       return true;
     } else {

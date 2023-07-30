@@ -138,7 +138,7 @@ export class MoviesListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       //Eğer silme modalından onay gelirse ilgili filmi movie dizisinden kaldırır ve ls'e set seder.
       if (result) {
-        var toasterInfo = this.toastr.info('Lütfen Bekleyin', `İşlem Sürüyor`, toastInfo);
+        let toasterInfo = this.toastr.info('Lütfen Bekleyin', `İşlem Sürüyor`, toastInfo);
         const updatedMovies = this.movies.filter(movie => movie.Title !== movieTitle);
         localStorage.setItem('movies', JSON.stringify(updatedMovies));
         this.toastr.remove(toasterInfo.toastId)

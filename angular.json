@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "d274fe7f-fb6b-4967-afca-6c4affcad54b"
+    "analytics": "d274fe7f-fb6b-4967-afca-6c4affcad54b",
+    "defaultCollection": "@angular-eslint/schematics"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -109,9 +110,17 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/ngx-toastr/toastr.css"
-
             ],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
