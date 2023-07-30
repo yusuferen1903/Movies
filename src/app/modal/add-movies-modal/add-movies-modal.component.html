@@ -20,7 +20,10 @@
                 <input type="text" id="Poster" placeholder="Film Görseli" formControlName="Poster">
             </div>
             <div class="row col-4">
-                <input type="number" id="Year" [min]="1900" [max]="2023" placeholder="Yapım Yılı" formControlName="Year">
+                <select formControlName="Year">
+                    <option disabled selected value=''>Yapım Yılı</option>
+                    <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                </select>
             </div>
             <div class="row col-4">
                 <select formControlName="Genre">
