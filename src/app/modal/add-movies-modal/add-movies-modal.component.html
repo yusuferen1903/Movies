@@ -7,7 +7,7 @@
                 <input type="text" (keypress)="keyPressAlphaNumeric($event)" id="Title" placeholder="Film Adı" formControlName="Title">
             </div>
             <div class="row col-4">
-                <input type="number" id="imdb" placeholder="IMDB Puanı" formControlName="imdb">
+                <input type="number" [max]="10" [min]="0" id="imdb" placeholder="IMDB Puanı" formControlName="imdb">
             </div>
             <div *ngIf = "!data" class="row col-4">
                 <input type="text" id="Actors" placeholder="Oyuncular" formControlName="Actors">
@@ -20,7 +20,7 @@
                 <input type="text" id="Poster" placeholder="Film Görseli" formControlName="Poster">
             </div>
             <div class="row col-4">
-                <input type="text" id="Year" placeholder="Yapım Yılı" formControlName="Year">
+                <input type="number" id="Year" [min]="1900" [max]="2023" placeholder="Yapım Yılı" formControlName="Year">
             </div>
             <div class="row col-4">
                 <select formControlName="Genre">
