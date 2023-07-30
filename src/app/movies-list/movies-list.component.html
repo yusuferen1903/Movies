@@ -12,6 +12,12 @@
         <option [value]="null">Film Türü</option>
         <option *ngFor="let genre of genres" [value]="genre.value">{{ genre.label }}</option>
     </select>
+    <select [(ngModel)]="sortBy" (ngModelChange)="applyFilter()">
+        <option value="yearDescending">Yıla Göre Azalan</option>
+        <option value="imdbAscending">IMDB'ye Göre Artan</option>
+        <option value="imdbDescending">IMDB'ye Göre Azalan</option>
+        <option value="yearAscending">Yıla Göre Artan</option>
+      </select>
 </div>
 <div class="film-length">
     <span *ngIf="filteredMovies.length > 0 else notFound">

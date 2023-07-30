@@ -16,6 +16,7 @@ export class MoviesListComponent implements OnInit {
   filteredMovies: any[] = [];
   filterGenre: string | null = null;
   filterTitle: string | null = null;
+  sortBy: string = 'yearDescending';
   genres: any[] = [    { value: 'Action', label: 'Aksiyon' },
   { value: 'Adventure', label: 'Macera' },
   { value: 'Animation', label: 'Animasyon' },
@@ -58,23 +59,34 @@ export class MoviesListComponent implements OnInit {
     let filteredByYear = this.filterYear && this.filterYear !== "null" ? this.movies.filter(movie => movie.Year == this.filterYear) : this.movies;
     let filteredByImdb = this.filterImdb && this.filterImdb !== "null" ? filteredByYear.filter(movie => parseFloat(movie.imdb) >= this.filterImdb) : filteredByYear;
     let filteredByGenre = this.filterGenre && this.filterGenre !== "null" ? filteredByImdb.filter(movie => movie.Genre.includes(this.filterGenre)) : filteredByImdb;
-    
-    if (this.filterTitle) {
-      this.filteredMovies = filteredByGenre.filter(movie => movie.Title.toLowerCase().includes(this.filterTitle.toLowerCase()));
-    } else {
-      this.filteredMovies = filteredByGenre;
+    let filteredByTitle = this.filterTitle && this.filterTitle !== "null" ? filteredByGenre.filter(movie => movie.Title.toLowerCase().includes(this.filterTitle.toLowerCase())) : filteredByGenre;
+    switch (this.sortBy) {
+      case 'imdbAscending':
+        filteredByTitle.sort((a, b) => parseFloat(a.imdb) - parseFloat(b.imdb));
+        break;
+      case 'imdbDescending':
+        filteredByTitle.sort((a, b) => parseFloat(b.imdb) - parseFloat(a.imdb));
+        break;
+      case 'yearAscending':
+        filteredByTitle.sort((a, b) => parseInt(a.Year) - parseInt(b.Year));
+        break;
+      case 'yearDescending':
+        filteredByTitle.sort((a , b) => {
+          if (b.Year !== a.Year) {
+            return b.Year - a.Year; // Yıla göre büyükten küçüğe sıralama
+          } else {
+            return b.imdb - a.imdb; // Aynı yılda olanları IMDb puanına göre büyükten küçüğe sıralama
+          }
+        })
+        break;
+      default:
+        break;
     }
+    this.filteredMovies = filteredByTitle;
   }
   getMoviesinLs(){
     const itemsString = localStorage.getItem('movies');
     this.movies = JSON.parse(itemsString);
-    this.movies.sort((a , b) => {
-      if (b.Year !== a.Year) {
-        return b.Year - a.Year; // Yıla göre büyükten küçüğe sıralama
-      } else {
-        return b.imdb - a.imdb; // Aynı yılda olanları IMDb puanına göre büyükten küçüğe sıralama
-      }
-    })
     this.applyFilter()
     console.log(this.movies);
     

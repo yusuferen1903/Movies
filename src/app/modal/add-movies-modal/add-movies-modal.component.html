@@ -4,7 +4,7 @@
     <div class="main-div flex-wrap">
         <div class="col-12 d-flex">
             <div class="row col-4">
-                <input type="text" id="Title" placeholder="Film Adı" formControlName="Title">
+                <input type="text" (keypress)="keyPressAlphaNumeric($event)" id="Title" placeholder="Film Adı" formControlName="Title">
             </div>
             <div class="row col-4">
                 <input type="number" id="imdb" placeholder="IMDB Puanı" formControlName="imdb">

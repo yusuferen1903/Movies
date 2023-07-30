@@ -77,10 +77,8 @@ export class AddMoviesModalComponent implements OnInit {
       this.movies.push(this.form.value)
       const movies = JSON.stringify(this.movies);
       localStorage.setItem('movies', movies);
-      this.dialogRef.close();
+      this.dialogRef.close(true);
     } else {      
-      console.log('sa');
-      
       this.movies = this.movies.filter(movie => movie.Title !== this.oldMovieTitle);
       this.movies.push(this.form.value)
       const movies = JSON.stringify(this.movies);
@@ -88,9 +86,16 @@ export class AddMoviesModalComponent implements OnInit {
       this.dialogRef.close(true);
       this.ngOnInit()
     }
+  }
+  keyPressAlphaNumeric(event) {
 
-    
-    // this.close(true)
+    var inp = String.fromCharCode(event.keyCode);
+    if (/[a-zA-Z0-9-_ğüıöçşĞÜÖÇŞ ]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
   cancel() {
     this.dialogRef.close({ response: null });
