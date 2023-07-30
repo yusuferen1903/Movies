@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IndividualConfig, ToastrService } from 'ngx-toastr';
 const toastErrorandSuccess: Partial<IndividualConfig> = {
@@ -53,36 +53,41 @@ export class AddMoviesModalComponent implements OnInit {
     this.buildForm()
     this.getMoviesinLs()
     this.oldMovieTitle = this.data?.movie.Title
-    
+
   }
-  getMoviesinLs(){
+
+  //local storageden filmleri çeker
+  getMoviesinLs() {
     const itemsString = localStorage.getItem('movies');
     this.movies = JSON.parse(itemsString);
   }
-  buildForm(){
+  buildForm() {
     this.form = this.fb.group({
       Title: [this.data?.movie.Title || '', Validators.required],
       imdb: [this.data?.movie.imdb || '', Validators.required],
       Actors: [this.data?.movie.Actors || '', Validators.required],
-      Poster : [this.data?.movie.Poster || '', Validators.required],
-      Year : [this.data?.movie.Year || '', Validators.required],
+      Poster: [this.data?.movie.Poster || '', Validators.required],
+      Year: [this.data?.movie.Year || '', Validators.required],
       Genre: [this.data?.movie.Genre || '', Validators.required],
       Plot: [this.data?.movie.Plot, Validators.required]
     })
   }
-  public close(value : any) {
+  public close(value: any) {
     this.dialogRef.close(value);
   }
-  submit (){
+  submit() {
     var toasterInfo = this.toastr.info('Lütfen Bekleyin', `İşlem Sürüyor`, toastInfo);
-    for (const key of Object.keys(this.form.controls)) { 
+    //Bütün alanların dolu olup olmadığını kontrol eder
+    for (const key of Object.keys(this.form.controls)) {
       if (this.form.controls[key].invalid) {
         const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + key + '"]');
         invalidControl.focus();
         this.toastr.remove(toasterInfo.toastId)
         const toaster = this.toastr.error('Zorunlu Alanları Doldurun', `Hata`, toastErrorandSuccess);
         return;
-      }}
+      }
+    }
+    //Eğer yeni film ise filmi oluşturur ve ls'e set eder
     if (!this.data) {
       this.movies.push(this.form.value)
       const movies = JSON.stringify(this.movies);
@@ -90,7 +95,8 @@ export class AddMoviesModalComponent implements OnInit {
       this.dialogRef.close(true);
       this.toastr.remove(toasterInfo.toastId)
       const toaster = this.toastr.success('Film Oluşturuldu', `İşlem Başarılı`, toastErrorandSuccess);
-    } else {      
+    } else {
+      //eğer güncellenen bir film ise güncellenen filmi silip güncellenmiş halini diziye ekledikten sonra ls'e set eder  
       this.movies = this.movies.filter(movie => movie.Title !== this.oldMovieTitle);
       this.movies.push(this.form.value)
       const movies = JSON.stringify(this.movies);
@@ -101,6 +107,8 @@ export class AddMoviesModalComponent implements OnInit {
       this.ngOnInit()
     }
   }
+
+  //Sadece Alfanümerik karakter girilmesine izin verir. (Türkçe karakterler opsiyonel olarak eklenmiştir)
   keyPressAlphaNumeric(event) {
 
     var inp = String.fromCharCode(event.keyCode);
@@ -111,6 +119,8 @@ export class AddMoviesModalComponent implements OnInit {
       return false;
     }
   }
+
+  //modalı kapatır
   cancel() {
     this.dialogRef.close({ response: null });
     this.close(false);

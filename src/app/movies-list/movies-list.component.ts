@@ -26,7 +26,7 @@ export class MoviesListComponent implements OnInit {
   filterGenre: string | null = null;
   filterTitle: string | null = null;
   sortBy: string = 'yearDescending';
-  genres: any[] = [    { value: 'Action', label: 'Aksiyon' },
+  genres: any[] = [{ value: 'Action', label: 'Aksiyon' },
   { value: 'Adventure', label: 'Macera' },
   { value: 'Animation', label: 'Animasyon' },
   { value: 'Biography', label: 'Biyografi' },
@@ -52,7 +52,7 @@ export class MoviesListComponent implements OnInit {
     private dialog: MatDialog,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-  ) { 
+  ) {
     this.id = this.route.snapshot.queryParamMap.get('q') || null;
   }
   dialogRef: MatDialogRef<ConfirmModalComponent>;
@@ -61,17 +61,21 @@ export class MoviesListComponent implements OnInit {
     this.getMoviesinLs()
     this.getYears()
   }
+  //filtreleme için 1900 den itibaren yılları çeker
   getYears() {
     const currentYear = new Date().getFullYear();
     for (let year = currentYear; year >= 1900; year--) {
       this.years.push(year);
     }
   }
+
   applyFilter() {
+    //Başlığa , Yıla , Imdb Puanına ve Türe göre filtreleme yapar
     let filteredByYear = this.filterYear && this.filterYear !== "null" ? this.movies.filter(movie => movie.Year == this.filterYear) : this.movies;
     let filteredByImdb = this.filterImdb && this.filterImdb !== "null" ? filteredByYear.filter(movie => parseFloat(movie.imdb) >= this.filterImdb) : filteredByYear;
     let filteredByGenre = this.filterGenre && this.filterGenre !== "null" ? filteredByImdb.filter(movie => movie.Genre.includes(this.filterGenre)) : filteredByImdb;
     let filteredByTitle = this.filterTitle && this.filterTitle !== "null" ? filteredByGenre.filter(movie => movie.Title.toLowerCase().includes(this.filterTitle.toLowerCase())) : filteredByGenre;
+    //Yıl ve Imdb olarak Azalana veya Artana göre sıralama yapar
     switch (this.sortBy) {
       case 'imdbAscending':
         filteredByTitle.sort((a, b) => parseFloat(a.imdb) - parseFloat(b.imdb));
@@ -83,7 +87,8 @@ export class MoviesListComponent implements OnInit {
         filteredByTitle.sort((a, b) => parseInt(a.Year) - parseInt(b.Year));
         break;
       case 'yearDescending':
-        filteredByTitle.sort((a , b) => {
+        filteredByTitle.sort((a, b) => {
+          //Yıllar aynı ise imdb yüksek olanı öne getirir
           if (b.Year !== a.Year) {
             return b.Year - a.Year; // Yıla göre büyükten küçüğe sıralama
           } else {
@@ -96,28 +101,34 @@ export class MoviesListComponent implements OnInit {
     }
     this.filteredMovies = filteredByTitle;
   }
-  getMoviesinLs(){
+
+  //Filmleri Çeker ve Default dizilim için filtrelemeye sokar
+  getMoviesinLs() {
     const itemsString = localStorage.getItem('movies');
     this.movies = JSON.parse(itemsString);
     this.applyFilter()
   }
-  edit(movie){
-    const dialogRef = this.dialog.open(AddMoviesModalComponent , {
+  //Güncelleme modalını açar
+  edit(movie) {
+    const dialogRef = this.dialog.open(AddMoviesModalComponent, {
       width: '800px',
+      //Güncellenecek filmin datasını modala yollar
       data: {
-        movie 
+        movie
       },
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.ngOnInit()
       }
-      
 
-  })
+
+    })
   }
-  deleteMovie(movieTitle){
-    const dialogRef = this.dialog.open(ConfirmModalComponent , {
+
+  //Filmi silme modalını açar
+  deleteMovie(movieTitle) {
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
       width: '500px',
       data: {
         title: "Filmi Sil",
@@ -125,6 +136,7 @@ export class MoviesListComponent implements OnInit {
       },
     })
     dialogRef.afterClosed().subscribe(result => {
+      //Eğer silme modalından onay gelirse ilgili filmi movie dizisinden kaldırır ve ls'e set seder.
       if (result) {
         var toasterInfo = this.toastr.info('Lütfen Bekleyin', `İşlem Sürüyor`, toastInfo);
         const updatedMovies = this.movies.filter(movie => movie.Title !== movieTitle);
@@ -133,7 +145,7 @@ export class MoviesListComponent implements OnInit {
         const toaster = this.toastr.success('Film Silindi', `İşlem Başarılı`, toastErrorandSuccess);
         this.ngOnInit()
       }
-  })
+    })
   }
 
 }

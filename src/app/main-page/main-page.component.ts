@@ -13,19 +13,21 @@ export class MainPageComponent implements OnInit {
     private dialog: MatDialog,
     private movieService: MoviesService,
     private router: Router,
-  ) {}
+  ) { }
   movies: any[] = [];
   currentPage = 1;
   filterTitle: string | null = null;
   filteredMovies: any[] = [];
   ngOnInit(): void {
     this.getMovies()
-    }
-  loadMoviestoLS() {
-      const movies = JSON.stringify(this.movies);
-      localStorage.setItem('movies', movies);
   }
-  getMovies(){
+  //Filmleri localstorage set eder
+  loadMoviestoLS() {
+    const movies = JSON.stringify(this.movies);
+    localStorage.setItem('movies', movies);
+  }
+  //Eğer proje ilk defa çalıştırıldıysa Omdb'den filmleri çeker
+  getMovies() {
     if (localStorage.getItem('movies') === null) {
       this.movieService.getAllMovies(this.currentPage).subscribe((movies: any[]) => {
         this.movies = movies;
@@ -33,12 +35,13 @@ export class MainPageComponent implements OnInit {
         this.imdBidtoImdp(this.movies)
       });
     } else {
+      //Eğer proje daha önceden çalıştırıldıysa ls'den filmleri movies dizisine çeker
       const itemsString = localStorage.getItem('movies');
       this.movies = JSON.parse(itemsString);
     }
   }
-
-  imdBidtoImdp(movies){
+  //Omdb'den çektiğimiz filmlerin imdbId si ile omdbnin servisine istek atılarak detayları çekilip diziye atanır
+  imdBidtoImdp(movies) {
     for (let i = 0; i < movies.length; i++) {
       this.movieService.getMoviesWithImdbId(movies[i].imdbID).subscribe((resp) => {
         this.movies[i].imdb = resp.imdbRating
@@ -51,22 +54,26 @@ export class MainPageComponent implements OnInit {
 
   }
   applyFilter() {
-    // Filmleri başlık alanına göre filtrele
+    // Filmleri başlık alanına göre filtreler
     if (this.filterTitle) {
-      this.filteredMovies =  this.movies.filter(movie => movie.Title.toLowerCase().includes(this.filterTitle.toLowerCase()));
+      this.filteredMovies = this.movies.filter(movie => movie.Title.toLowerCase().includes(this.filterTitle.toLowerCase()));
     } else {
       this.filteredMovies = this.movies;
     }
 
   }
-  goToMovie(movieTitle){
+
+  //Arattığımız filmin detayına gider
+  goToMovie(movieTitle) {
     this.router.navigate(['/movies-list'], { queryParams: { q: movieTitle } });
   }
-  openDialog(){
-    const dialogRef = this.dialog.open(AddMoviesModalComponent , {
+
+  //Film ekleme modalını açar
+  openDialog() {
+    const dialogRef = this.dialog.open(AddMoviesModalComponent, {
       width: '800px'
     })
     dialogRef.afterClosed().subscribe(result => {
-  })
+    })
   }
 }

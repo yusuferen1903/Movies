@@ -16,14 +16,15 @@ export class ConfirmModalComponent {
   public cancel() {
     this.close(false);
   }
+  //modalı kapatır
   public close(value) {
     this.mdDialogRef.close(value);
   }
-
+  //modalı kapatır ve başarılı döner
   public confirm() {
     this.close(true);
   }
-  
+  //Esc tuşuna basınca modalı kapatır
   @HostListener("keydown.esc")
   public onEsc() {
     this.close(false);
