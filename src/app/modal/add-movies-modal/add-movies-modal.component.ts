@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, HostListener, Inject } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
@@ -33,7 +33,9 @@ export class AddMoviesModalComponent implements OnInit {
     { value: 'War', label: 'Savaş' },
     { value: 'Western', label: 'Batılı' }
   ];
+  oldMovieTitle
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddMoviesModalComponent>,
     private fb: FormBuilder,
     private el: ElementRef
@@ -42,6 +44,9 @@ export class AddMoviesModalComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm()
     this.getMoviesinLs()
+    console.log(this.data);
+    this.oldMovieTitle = this.data.movie.Title
+    
   }
   getMoviesinLs(){
     const itemsString = localStorage.getItem('movies');
@@ -49,13 +54,13 @@ export class AddMoviesModalComponent implements OnInit {
   }
   buildForm(){
     this.form = this.fb.group({
-      Title: ['', Validators.required],
-      imdb: ['', Validators.required],
-      Actors: ['', Validators.required],
-      Poster : ['', Validators.required],
-      Year : ['', Validators.required],
-      Genre: ['', Validators.required],
-      Plot: ['', Validators.required]
+      Title: [this.data?.movie.Title || '', Validators.required],
+      imdb: [this.data?.movie.imdb || '', Validators.required],
+      Actors: [this.data?.movie.Actors || '', Validators.required],
+      Poster : [this.data?.movie.Poster || '', Validators.required],
+      Year : [this.data?.movie.Year || '', Validators.required],
+      Genre: [this.data?.movie.Genre || '', Validators.required],
+      Plot: [this.data?.movie.Plot, Validators.required]
     })
   }
   public close(value : any) {
@@ -68,9 +73,22 @@ export class AddMoviesModalComponent implements OnInit {
         invalidControl.focus();
         return;
       }}
-    this.movies.push(this.form.value)
-    const movies = JSON.stringify(this.movies);
-    localStorage.setItem('movies', movies);
+    if (!this.data) {
+      this.movies.push(this.form.value)
+      const movies = JSON.stringify(this.movies);
+      localStorage.setItem('movies', movies);
+      this.dialogRef.close();
+    } else {      
+      console.log('sa');
+      
+      this.movies = this.movies.filter(movie => movie.Title !== this.oldMovieTitle);
+      this.movies.push(this.form.value)
+      const movies = JSON.stringify(this.movies);
+      localStorage.setItem('movies', movies);
+      this.dialogRef.close(true);
+      this.ngOnInit()
+    }
+
     
     // this.close(true)
   }

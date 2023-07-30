@@ -79,17 +79,22 @@ export class MoviesListComponent implements OnInit {
     console.log(this.movies);
     
   }
-  edit(){
+  edit(movie){
     const dialogRef = this.dialog.open(AddMoviesModalComponent , {
-      width: '800px'
+      width: '800px',
+      data: {
+        movie 
+      },
     })
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result) {
+        this.ngOnInit()
+      }
       
 
   })
   }
-  deleteMovie(filmTitle){
+  deleteMovie(movieTitle){
     const dialogRef = this.dialog.open(ConfirmModalComponent , {
       width: '500px',
       data: {
@@ -99,7 +104,7 @@ export class MoviesListComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const updatedMovies = this.movies.filter(movie => movie.Title !== filmTitle);
+        const updatedMovies = this.movies.filter(movie => movie.Title !== movieTitle);
         localStorage.setItem('movies', JSON.stringify(updatedMovies));
         this.ngOnInit()
       }

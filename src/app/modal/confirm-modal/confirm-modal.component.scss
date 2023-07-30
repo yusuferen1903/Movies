@@ -57,11 +57,12 @@
       border: none;
       padding: 10px;
       cursor: pointer;
+      color: #fff;
       &.confirm{
-        background: #27aa67;
+        background: #e63442;
       }
       &.cancel{
-        background: #e63442;
+        background: #000;
       }
     }
   }

@@ -38,11 +38,11 @@
             <div class="text-container">
                 <h3>{{ item.Title }} ({{item.Year}})</h3>
                 <p>Oyuncular: {{ item.Actors }}</p>
-                <p>IMDb: {{ item.imdb }}</p>
+                <p>IMDb: {{ item.imdb }}/10</p>
             </div>
         </div>
         <div class="edit">
-            <button class="edit" (click)="edit()"><i class='fas fa-edit'></i></button>
+            <button class="edit" (click)="edit(item)"><i class='fas fa-edit'></i></button>
             <button class="delete" (click)="deleteMovie(item.Title)"><i class="fa fa-trash" aria-hidden="true"></i> SİL</button>
         </div>
 

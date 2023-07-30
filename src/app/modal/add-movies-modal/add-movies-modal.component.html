@@ -9,13 +9,13 @@
             <div class="row col-4">
                 <input type="number" id="imdb" placeholder="IMDB Puanı" formControlName="imdb">
             </div>
-            <div class="row col-4">
+            <div *ngIf = "!data" class="row col-4">
                 <input type="text" id="Actors" placeholder="Oyuncular" formControlName="Actors">
 
             </div>
         </div>
 
-        <div class="col-12 d-flex">
+        <div *ngIf = "!data" class="col-12 d-flex">
             <div class="row col-4">
                 <input type="text" id="Poster" placeholder="Film Görseli" formControlName="Poster">
             </div>
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="col-12 d-flex">
+        <div *ngIf = "!data" class="col-12 d-flex">
             <div class="row col-8">
                 <input type="text" id="Plot" placeholder="Film Kısa Açıklama" formControlName="Plot">
             </div>
@@ -39,7 +39,7 @@
     </div>
     <div class="create">
         <button type="submit">
-            Film Ekle
+            {{data ? 'Düzenle' : 'Film Ekle'}}
         </button>
     </div>
 </form>
