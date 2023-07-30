@@ -129,7 +129,12 @@
     cursor: pointer;
   }
 }
+@media(max-width:1830px) {
 
+.image-container:hover .description-overlay {
+  width: calc(90% - 20px) !important;
+}
+}
 @media(max-width:1400px) {
 
   .card {
