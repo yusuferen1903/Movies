@@ -2,7 +2,7 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
     <span class="close-icon" (click)="cancel()">&times;</span>
     <div class="main-div flex-wrap">
-        <div class="col-12 d-flex">
+        <div class="m-inputsrow col-12 d-flex">
             <div class="row col-4">
                 <input type="text" (keypress)="keyPressAlphaNumeric($event)" id="Title" placeholder="Film Adı" formControlName="Title">
             </div>
@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div *ngIf = "!data" class="col-12 d-flex">
+        <div *ngIf = "!data" class="m-inputsrow col-12 d-flex">
             <div class="row col-4">
                 <input type="text" id="Poster" placeholder="Film Görseli" formControlName="Poster">
             </div>
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div *ngIf = "!data" class="col-12 d-flex">
+        <div *ngIf = "!data" class="m-inputsrow col-12 d-flex">
             <div class="row col-8">
                 <input type="text" id="Plot" placeholder="Film Kısa Açıklama" formControlName="Plot">
             </div>

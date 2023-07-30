@@ -81,3 +81,20 @@
       }
     }
   }
+
+  @media(max-width:573px){
+    .card{
+      min-width: unset !important;
+      .button-card {
+        padding: 20px;
+        .green-buttons {
+          margin-left: 2%;
+          padding: 8px 11px;
+          font-size: 12px;
+        }
+      }
+      .list-group {
+        width: 240px;
+      }
+    }
+  }

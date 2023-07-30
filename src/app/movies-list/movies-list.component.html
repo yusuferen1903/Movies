@@ -1,4 +1,5 @@
 <div class="filter-container">
+    <span class="mainpage" routerLink="">Anasayfa</span>
     <input type="text" [(ngModel)]="filterTitle" (ngModelChange)="applyFilter()" placeholder="Ara">
     <select id="yearFilter" [(ngModel)]="filterYear" (ngModelChange)="applyFilter()">
         <option [value]="null">Film Yılı</option>

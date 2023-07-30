@@ -13,7 +13,17 @@
   justify-content: center;
   display: flex;
   align-items: center;
-
+  .mainpage {
+    margin-right: 10px;
+    width: 200px;
+    height: 10px;
+    letter-spacing: 0.5px;
+    color: #fff;
+    cursor: pointer;
+  }
+  .mainpage:hover {
+    color:#cd7f32;
+  }
   input {
     margin-right: 10px;
     width: 200px;
@@ -117,5 +127,50 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+  }
+}
+
+@media(max-width:1400px) {
+
+  .card {
+    width: calc(27% - 20px);
+  }
+}
+
+@media(max-width:1100px) {
+
+  .card {
+    width: calc(33% - 20px);
+  }
+}
+
+@media(max-width:832px) {
+
+  .filter-container {
+    flex-direction: column;
+    select {
+      margin-top: 2%;
+    }
+    input {
+      margin-top: 2%;
+      width: 180px;
+    }
+  }
+  .card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media(max-width:610px) {
+
+  .card {
+    width: calc(70% - 20px);
+  }
+}
+
+@media(max-width:470px) {
+
+  .card {
+    width: calc(85% - 20px);
   }
 }
