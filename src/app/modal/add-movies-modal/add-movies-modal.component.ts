@@ -15,6 +15,7 @@ const toastInfo: Partial<IndividualConfig> = {
 })
 export class AddMoviesModalComponent implements OnInit {
   form: FormGroup;
+  years: number[] = [];
   movies: any[] = [];
   genres: any[] = [
     { value: 'Action', label: 'Aksiyon' },
@@ -53,9 +54,14 @@ export class AddMoviesModalComponent implements OnInit {
     this.buildForm()
     this.getMoviesinLs()
     this.oldMovieTitle = this.data?.movie.Title
-
+    this.getYears()
   }
-
+  getYears() {
+    const currentYear = new Date().getFullYear();
+    for (let year = currentYear; year >= 1900; year--) {
+      this.years.push(year);
+    }
+  }
   //local storageden filmleri çeker
   getMoviesinLs() {
     const itemsString = localStorage.getItem('movies');
@@ -83,6 +89,10 @@ export class AddMoviesModalComponent implements OnInit {
         const invalidControl = this.el.nativeElement.querySelector('[formcontrolname="' + key + '"]');
         invalidControl.focus();
         this.toastr.remove(toasterInfo.toastId)
+        if (key === 'imdb' && this.form.controls[key].value < 0 || this.form.controls[key].value > 10 ) {
+          const toaster = this.toastr.warning('IMDb değeri 0 ve 10 arasında olmalıdır', `Uyarı`, toastErrorandSuccess);
+          return
+        }
         const toaster = this.toastr.error('Zorunlu Alanları Doldurun', `Hata`, toastErrorandSuccess);
         return;
       }
